@@ -12,9 +12,11 @@ export default function Home() {
   const auth = useAuth();
   const navigate = useNavigate();
 
+  const deviceId = new URLSearchParams(window.location.search).get("deviceId");
+
   useEffect(() => {
     async function getAllOrders() {
-      const query = new QueryBuilder("R", "/M1237312", null);
+      const query = new QueryBuilder("R", `/${deviceId}`, null);
       const returnedOrders = await query.execute();
       const sortedOrdersAsc = returnedOrders.sort(
         (a, b) => new Date(a.orderTime) - new Date(b.orderTime)
